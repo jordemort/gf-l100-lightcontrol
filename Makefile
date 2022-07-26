@@ -1,5 +1,11 @@
+export GOARM ?= 5
+export GOARCH ?= arm
+export GOOS ?= linux
+export GOLDFLAGS ?= -s
+
 lightcontrol: go.mod go.sum lightcontrol.go
-	env GOARM=5 GOARCH=arm GOOS=linux go build -trimpath -ldflags '-s' -o lightcontrol
+	go build -trimpath -ldflags '$(GOLDFLAGS)' -o lightcontrol
+	upx --best lightcontrol
 
 .PHONY: clean
 clean:
